@@ -1,5 +1,3 @@
-const { Scene } = require("phaser");
-
 const config = {
     type: Phaser.AUTO,
     width: 800,
@@ -9,21 +7,21 @@ const config = {
         preload: preload,
         create: create,
         update: update
-    } 
+    }
 };
 
+// Usa la variable global 'Phaser'
 const game = new Phaser.Game(config);
 
-//Assets
 function preload(){
-    //Loas images, spritesheets, audio, etc.
+  this.load.image('sky' ,'assets\images\sky.png');
 }
 
 function create(){
-    //Create sprites, animations, input handlers, etc.
+  // Lógica de creación
+  this.image.load(400, 300, 'sky');
 }
 
-//Game Loop
 function update(){
-    //update game objects, check collisions, etc
+  // Lógica de actualización
 }
