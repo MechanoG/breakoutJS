@@ -22,7 +22,10 @@ const game = new Phaser.Game(config);
 
 function preload(){
 
-  this.load.atlas("backgrounds", "assets/images/Backround_Tiles.png", "assets/images/backgrounds.json" );
+  this.load.atlas("backgrounds", "assets/images/Backround_Tiles.png", "assets/images/backgrounds.json");
+  this.load.atlas("ballPadle", "assets/images/paddles_and_balls.png", "assets/images/ballPadle.json");
+  
+  
   /*
   this.load.image("sky" , "assets/images/sky.png");
   this.load.image("star" , "assets/images/star.png");
@@ -38,10 +41,17 @@ function create(){
   let backgroundTexture = this.textures.get("backgrounds");
   let backgroundFrames = backgroundTexture.getFrameNames();
   
-  this.add.image(100,300, "backgrounds", backgroundFrames[1]).setDisplaySize(200,600)
-  this.add.image(300,300, "backgrounds", backgroundFrames[2]).setDisplaySize(200,600)
-  this.add.image(500,300, "backgrounds", backgroundFrames[3]).setDisplaySize(200,600)
-  this.add.image(700,300, "backgrounds", backgroundFrames[4]).setDisplaySize(200,600)
+  this.add.image(100,300, "backgrounds", backgroundFrames[1]).setDisplaySize(200,600);
+  this.add.image(300,300, "backgrounds", backgroundFrames[2]).setDisplaySize(200,600);
+  this.add.image(500,300, "backgrounds", backgroundFrames[3]).setDisplaySize(200,600);
+  this.add.image(700,300, "backgrounds", backgroundFrames[4]).setDisplaySize(200,600);
+
+  let ballpadleTexture = this.textures.get("ballPadle");
+  let ballpadleFrames = backgroundTexture.getFrameNames();
+  this.add.image(400,300, "ballPadle", backgroundFrames[0]);
+  this.add.image(100,300, "ballPadle", backgroundFrames[1]);
+  this.add.image(200,300, "ballPadle", backgroundFrames[2]);
+  this.add.image(300,300, "ballPadle", backgroundFrames[3]);
 
   /*this.add.image(400, 300, "sky");
   
