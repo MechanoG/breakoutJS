@@ -41,17 +41,16 @@ function create(){
   let backgroundTexture = this.textures.get("backgrounds");
   let backgroundFrames = backgroundTexture.getFrameNames();
   
-  this.add.image(100,300, "backgrounds", backgroundFrames[1]).setDisplaySize(200,600);
-  this.add.image(300,300, "backgrounds", backgroundFrames[2]).setDisplaySize(200,600);
-  this.add.image(500,300, "backgrounds", backgroundFrames[3]).setDisplaySize(200,600);
-  this.add.image(700,300, "backgrounds", backgroundFrames[4]).setDisplaySize(200,600);
+  this.add.image(100,300, "backgrounds", backgroundFrames[0]).setDisplaySize(200,600);
+  this.add.image(300,300, "backgrounds", backgroundFrames[1]).setDisplaySize(200,600);
+  this.add.image(500,300, "backgrounds", backgroundFrames[2]).setDisplaySize(200,600);
+  this.add.image(700,300, "backgrounds", backgroundFrames[3]).setDisplaySize(200,600);
 
   let ballpadleTexture = this.textures.get("ballPadle");
-  let ballpadleFrames = backgroundTexture.getFrameNames();
-  this.add.image(400,300, "ballPadle", backgroundFrames[0]);
-  this.add.image(100,300, "ballPadle", backgroundFrames[1]);
-  this.add.image(200,300, "ballPadle", backgroundFrames[2]);
-  this.add.image(300,300, "ballPadle", backgroundFrames[3]);
+  let ballpadleFrames = ballpadleTexture.getFrameNames();
+  
+  this.add.image(400,550, "ballPadle", ballpadleFrames[2]).setDisplaySize(100, 33);
+  
 
   /*this.add.image(400, 300, "sky");
   
