@@ -50,6 +50,8 @@ function create(){
   let ballpadleFrames = ballpadleTexture.getFrameNames();
   
   this.add.image(400,550, "ballPadle", ballpadleFrames[2]).setDisplaySize(100, 33);
+
+  this.add.image(400,525, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
   
 
   /*this.add.image(400, 300, "sky");
