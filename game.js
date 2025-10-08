@@ -48,11 +48,24 @@ function create(){
 
   let ballpadleTexture = this.textures.get("ballPadle");
   let ballpadleFrames = ballpadleTexture.getFrameNames();
-  
-  this.add.image(400,550, "ballPadle", ballpadleFrames[2]).setDisplaySize(100, 33);
 
-  this.add.image(400,525, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
+  //Padle
+  paddle = this.physics.add.sprite(400,550, "ballPadle", ballpadleFrames[2]).setImmovable(true)
+  paddle.setDisplaySize(100, 30);
+  paddle.body.setAllowGravity(false);
+  paddle.setCollideWorldBounds(true);
+
+
+  //Ball
+  ball= this.physics.add.sprite(400,525, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
+  //this.add.image(400,525, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
   
+
+  //Collision of paddle and ball
+  this.physics.add.collider(paddle,ball);
+
+  //Keyboard input 
+  cursor = this.input.keyboard.CreateCursorKey();
 
   /*this.add.image(400, 300, "sky");
   
@@ -153,6 +166,14 @@ function create(){
 }
 
 function update(){
+/**Logica de actualizacion */
+
+/////Paddle
+  if(cursor.left.isDown){
+    paddle.setVelocityX(-10);
+  }
+
+
   /* Lógica de actualización
   if (cursors.left.isDown){
     player.setVelocityX(-160);
