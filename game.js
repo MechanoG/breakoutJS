@@ -5,7 +5,6 @@ const config = {
     physics: {
       default: 'arcade',
       arcade: {
-        gravity: {y : 300},
         debug: false 
       }
     },
@@ -47,13 +46,14 @@ function create(){
   //Padle
   paddle = this.physics.add.image(400,550, "ballPadle", ballpadleFrames[2]).setImmovable(true);
   paddle.setDisplaySize(100, 30);
-  paddle.body.setAllowGravity(false);
   paddle.setCollideWorldBounds(true);
 
 
   //Ball
   ball= this.physics.add.sprite(400,paddle.y-30, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
   ball.setCollideWorldBounds(true);
+  ball.setBounce(1);
+  ball.setData('onPaddle',true);
   
 
   //Collision of paddle and ball
@@ -61,9 +61,6 @@ function create(){
 
   //Keyboard input 
   cursor = this.input.keyboard.createCursorKeys();
-
-  
-  
 
   /*this.add.image(400, 300, "sky");
   
@@ -163,19 +160,38 @@ function create(){
   
 }
 
-
+function resetBall(){
+  ball.setPosition(paddle.x, paddle.y-30);
+  ball.setVelocity(0,0);
+  ball.setData("onPaddle", true)
+}
 
 function update(){
 /**Logica de actualizacion */
 
 /////Paddle
   if(cursor.left.isDown){
-    paddle.setVelocityX(-150)
+    if(ball.getData('onPaddle')){
+      ball.x = paddle.x;  
+    } 
+    paddle.setVelocityX(-300)
   }else if(cursor.right.isDown){
-    paddle.setVelocityX(150);
+    if(ball.getData('onPaddle')){
+      ball.x = paddle.x;  
+    } 
+    paddle.setVelocityX(300);
+  }else if(cursor.up.isDown){
+    ball.setVelocity(-500,-500);
+    ball.setData("onPaddle", false);
   }else{
     paddle.setVelocityX(0);
   }
+
+  if(ball.y > 600 ){
+    resetBall();
+  }
+
+
 
 
   /* Lógica de actualización
