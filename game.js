@@ -25,19 +25,10 @@ function preload(){
   this.load.atlas("backgrounds", "assets/images/Backround_Tiles.png", "assets/images/backgrounds.json");
   this.load.atlas("ballPadle", "assets/images/paddles_and_balls.png", "assets/images/ballPadle.json");
   
-  
-  /*
-  this.load.image("sky" , "assets/images/sky.png");
-  this.load.image("star" , "assets/images/star.png");
-  this.load.image("ground" , "assets/images/platform.png");
-  this.load.image("bomb" , "assets/images/bomb.png")
-  this.load.spritesheet("dude" , "assets/images/dude.png",
-    {frameWidth: 32, frameHeigth: 48}
-  );*/
 }
  
 function create(){
-
+  //Carga spritesheet de backguronds
   let backgroundTexture = this.textures.get("backgrounds");
   let backgroundFrames = backgroundTexture.getFrameNames();
   
@@ -46,19 +37,23 @@ function create(){
   this.add.image(500,300, "backgrounds", backgroundFrames[2]).setDisplaySize(200,600);
   this.add.image(700,300, "backgrounds", backgroundFrames[3]).setDisplaySize(200,600);
 
+  //names of sprites on atlas 
   let ballpadleTexture = this.textures.get("ballPadle");
   let ballpadleFrames = ballpadleTexture.getFrameNames();
 
+  //World limits
+  this.physics.world.setBoundsCollision(true, true, true, false);
+  
   //Padle
-  paddle = this.physics.add.sprite(400,550, "ballPadle", ballpadleFrames[2]);
+  paddle = this.physics.add.image(400,550, "ballPadle", ballpadleFrames[2]).setImmovable(true);
   paddle.setDisplaySize(100, 30);
   paddle.body.setAllowGravity(false);
   paddle.setCollideWorldBounds(true);
 
 
   //Ball
-  ball= this.physics.add.sprite(400,525, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
-  
+  ball= this.physics.add.sprite(400,paddle.y-30, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
+  ball.setCollideWorldBounds(true);
   
 
   //Collision of paddle and ball
@@ -66,6 +61,8 @@ function create(){
 
   //Keyboard input 
   cursor = this.input.keyboard.createCursorKeys();
+
+  
   
 
   /*this.add.image(400, 300, "sky");
@@ -165,6 +162,8 @@ function create(){
   */
   
 }
+
+
 
 function update(){
 /**Logica de actualizacion */
