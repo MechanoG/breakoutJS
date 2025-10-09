@@ -50,7 +50,7 @@ function create(){
   let ballpadleFrames = ballpadleTexture.getFrameNames();
 
   //Padle
-  paddle = this.physics.add.sprite(400,550, "ballPadle", ballpadleFrames[2]).setImmovable(true)
+  paddle = this.physics.add.sprite(400,550, "ballPadle", ballpadleFrames[2]);
   paddle.setDisplaySize(100, 30);
   paddle.body.setAllowGravity(false);
   paddle.setCollideWorldBounds(true);
@@ -58,14 +58,15 @@ function create(){
 
   //Ball
   ball= this.physics.add.sprite(400,525, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
-  //this.add.image(400,525, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
+  
   
 
   //Collision of paddle and ball
   this.physics.add.collider(paddle,ball);
 
   //Keyboard input 
-  cursor = this.input.keyboard.CreateCursorKey();
+  cursor = this.input.keyboard.createCursorKeys();
+  
 
   /*this.add.image(400, 300, "sky");
   
@@ -170,7 +171,11 @@ function update(){
 
 /////Paddle
   if(cursor.left.isDown){
-    paddle.setVelocityX(-10);
+    paddle.setVelocityX(-150)
+  }else if(cursor.right.isDown){
+    paddle.setVelocityX(150);
+  }else{
+    paddle.setVelocityX(0);
   }
 
 
