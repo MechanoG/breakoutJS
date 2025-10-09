@@ -181,8 +181,10 @@ function update(){
     } 
     paddle.setVelocityX(300);
   }else if(cursor.up.isDown){
-    ball.setVelocity(-500,-500);
-    ball.setData("onPaddle", false);
+    if (ball.getData("onPaddle")){
+      ball.setVelocity(-500,-500);
+      ball.setData("onPaddle", false);
+    }
   }else{
     paddle.setVelocityX(0);
   }
