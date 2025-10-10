@@ -50,14 +50,14 @@ function create(){
 
 
   //Ball
-  ball= this.physics.add.sprite(400,paddle.y-30, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
+  ball= this.physics.add.sprite(400,paddle.y-35, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
   ball.setCollideWorldBounds(true);
   ball.setBounce(1);
   ball.setData('onPaddle',true);
   
 
   //Collision of paddle and ball
-  this.physics.add.collider(paddle,ball);
+  this.physics.add.collider(paddle,ball, hitpaddle);
 
   //Keyboard input 
   cursor = this.input.keyboard.createCursorKeys();
@@ -161,9 +161,27 @@ function create(){
 }
 
 function resetBall(){
-  ball.setPosition(paddle.x, paddle.y-30);
+  ball.setPosition(paddle.x, paddle.y-45);
   ball.setVelocity(0,0);
   ball.setData("onPaddle", true)
+}
+
+function hitpaddle(){
+  let diff=0;
+  
+  if(ball.x >paddle.x ){
+    diff = ball.x - paddle.x;
+    ball.setVelocityX(diff*10);
+
+  }else if(ball.x < paddle.x ){
+    diff = paddle.x - ball.x;
+    ball.setVelocityX(diff*-10);
+  }else{
+    ball.setVelocityX(2+Math.random()*8)
+  }
+
+
+
 }
 
 function update(){
@@ -182,7 +200,7 @@ function update(){
     paddle.setVelocityX(300);
   }else if(cursor.up.isDown){
     if (ball.getData("onPaddle")){
-      ball.setVelocity(-500,-500);
+      ball.setVelocity(-75,-500);
       ball.setData("onPaddle", false);
     }
   }else{
