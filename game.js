@@ -44,7 +44,7 @@ function create(){
   this.physics.world.setBoundsCollision(true, true, true, false);
   
   //Padle
-  paddle = this.physics.add.image(400,550, "ballPadle", ballpadleFrames[2]).setImmovable(true);
+  paddle = this.physics.add.image(400, 550, "ballPadle", ballpadleFrames[2]).setImmovable(true);
   paddle.setDisplaySize(100, 30);
   paddle.setCollideWorldBounds(true);
 

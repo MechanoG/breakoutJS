@@ -1,0 +1,24 @@
+
+//////Ladrillos////////////
+Generador de ladrillos.
+
+1-. cargar atlas de ladrillos
+
+2-. Posicionar cada ladrillo en el lugar correspondiente{
+    -anchura para los ladrillos =6 *ancho de los ladrillos
+    -altura = 6 * altura de los ladrillos
+    
+
+
+}
+    
+
+
+--Cada vez que un ladrillo es golpeado una vez se quiebra
+--Al ser golpeado 2 veces el ladrillo se deshace
+--Al no  haber mas ladrillos se acaba el nivel
+--Cuando la pelota golpea el ladrillo esta rebota en el.
+
+
+
+
