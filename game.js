@@ -23,7 +23,9 @@ function preload(){
 
   this.load.atlas("backgrounds", "assets/images/Backround_Tiles.png", "assets/images/backgrounds.json");
   this.load.atlas("ballPadle", "assets/images/paddles_and_balls.png", "assets/images/ballPadle.json");
+  this.load.atlas("bricks", "assets/images/bricks.png", "assets/images/bricks.json");
   
+
 }
  
 function create(){
@@ -40,6 +42,9 @@ function create(){
   let ballpadleTexture = this.textures.get("ballPadle");
   let ballpadleFrames = ballpadleTexture.getFrameNames();
 
+  let bricksTexture = this.textures.get("bricks");
+  let bricksFrames = bricksTexture.getFrameNames();
+
   //World limits
   this.physics.world.setBoundsCollision(true, true, true, false);
   
@@ -48,12 +53,18 @@ function create(){
   paddle.setDisplaySize(100, 30);
   paddle.setCollideWorldBounds(true);
 
-
   //Ball
   ball= this.physics.add.sprite(400,paddle.y-35, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
   ball.setCollideWorldBounds(true);
   ball.setBounce(1);
   ball.setData('onPaddle',true);
+
+  //Bricks
+  bricks = this.physics.add.staticGroup()
+  bricks.create(300,300, "bricks", bricksFrames[0])
+  
+  
+           
   
 
   //Collision of paddle and ball

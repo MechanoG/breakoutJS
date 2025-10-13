@@ -7,6 +7,12 @@ Generador de ladrillos.
 2-. Posicionar cada ladrillo en el lugar correspondiente{
     -anchura para los ladrillos =6 *ancho de los ladrillos
     -altura = 6 * altura de los ladrillos
+
+3-. por cada fila  i en el espacio para ladrillo
+        por cada columna de la fila i:
+            pone en pantalla el sprite de ladrillo para la fila i
+
+
     
 
 
