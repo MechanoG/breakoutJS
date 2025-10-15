@@ -1,3 +1,5 @@
+
+
 const config = {
     type: Phaser.AUTO,
     width: 800,   
@@ -59,19 +61,43 @@ function create(){
   ball.setBounce(1);
   ball.setData('onPaddle',true);
 
+
+   //names of the sprites bricks
+  let graybrick = bricksFrames[0];
+  let greenbrick = bricksFrames[1];
+  let yellowbrick = bricksFrames[2];
+  let orangebrick = bricksFrames[3];
+  let redbrick = bricksFrames[4];
+  let purplebrick = bricksFrames[5];
+
   //Bricks
-  bricks = this.physics.add.staticGroup()
-  bricks.create(300,300, "bricks", bricksFrames[0])
+  bricks =  this.physics.add.staticGroup({
+    key : "bricks",
+    frame: [graybrick,greenbrick,yellowbrick,orangebrick,redbrick,purplebrick],
+    frameQuantity : 7,
+    gridAlign :{width: 7, height:6, cellWidth : 100, cellHeight: 30, x: 85, y: 100}
+   });
+
+  bricks.children.iterate((child) =>{child.setDisplaySize(100, 30)} )
+ 
+
+
+
+  
+ 
   
   
            
-  
 
-  //Collision of paddle and ball
+
+  //Collisions
+  
   this.physics.add.collider(paddle,ball, hitpaddle);
+  this.physics.add.collider(ball, bricks);
 
   //Keyboard input 
   cursor = this.input.keyboard.createCursorKeys();
+  
 
   /*this.add.image(400, 300, "sky");
   
