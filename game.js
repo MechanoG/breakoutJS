@@ -93,7 +93,8 @@ function create(){
   //Collisions
   
   this.physics.add.collider(paddle,ball, hitpaddle);
-  this.physics.add.collider(ball, bricks);
+  this.physics.add.collider(ball, bricks, hitBricks, null, this);
+  
 
   //Keyboard input 
   cursor = this.input.keyboard.createCursorKeys();
@@ -203,6 +204,15 @@ function resetBall(){
   ball.setData("onPaddle", true)
 }
 
+function resetLevel(){
+   resetBall();
+
+  bricks.children.each(brick => {
+    brick.enableBody(false,0,0, true, true);
+  })
+
+}
+
 function hitpaddle(){
   let diff=0;
   
@@ -218,6 +228,16 @@ function hitpaddle(){
   }
 
 
+
+}
+
+function hitBricks(ball, brick){
+  brick.disableBody(true, true);
+
+  if (bricks.countActive() === 0){
+    resetLevel();
+
+  }
 
 }
 
