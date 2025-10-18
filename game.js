@@ -54,7 +54,13 @@ function create(){
   paddle.setDisplaySize(100, 30);
   paddle.setCollideWorldBounds(true);
 
-  this.add.image(700,300, "bricks", bricksFrames[6]);
+  this.add.image(700,300, "bricks", bricksFrames[6]).setDisplaySize(100,30);
+  this.add.image(700,330, "bricks", bricksFrames[7]).setDisplaySize(100,30);
+  this.add.image(700,360, "bricks", bricksFrames[8]).setDisplaySize(100,30);
+  this.add.image(700,390, "bricks", bricksFrames[9]).setDisplaySize(100,30);
+  this.add.image(700,420, "bricks", bricksFrames[10]).setDisplaySize(100,30);
+  this.add.image(700,450, "bricks", bricksFrames[11]).setDisplaySize(100,30);
+
 
   //Ball
   ball= this.physics.add.sprite(400,paddle.y-35, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
@@ -81,7 +87,8 @@ function create(){
 
   bricks.children.iterate((child) =>{
     child.setDisplaySize(100, 30)
-  } )
+    child.setData('cracked', false);
+  })
   
   //Collisions
   
@@ -131,7 +138,14 @@ function hitpaddle(){
 }
 
 function hitBricks(ball, brick){
-  brick.disableBody(true, true);
+  
+  if (brick.getData('cracked')){
+    brick.disableBody(true, true);
+  }
+
+
+  brick.setData('cracked', true);
+  brick.setFrame(bricksFrames[5]);
 
   if (bricks.countActive() === 0){
     resetLevel();
