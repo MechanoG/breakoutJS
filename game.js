@@ -54,13 +54,6 @@ function create(){
   paddle.setDisplaySize(100, 30);
   paddle.setCollideWorldBounds(true);
 
-  this.add.image(700,300, "bricks", bricksFrames[6]).setDisplaySize(100,30);
-  this.add.image(700,330, "bricks", bricksFrames[7]).setDisplaySize(100,30);
-  this.add.image(700,360, "bricks", bricksFrames[8]).setDisplaySize(100,30);
-  this.add.image(700,390, "bricks", bricksFrames[9]).setDisplaySize(100,30);
-  this.add.image(700,420, "bricks", bricksFrames[10]).setDisplaySize(100,30);
-  this.add.image(700,450, "bricks", bricksFrames[11]).setDisplaySize(100,30);
-
 
   //Ball
   ball= this.physics.add.sprite(400,paddle.y-35, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
@@ -99,9 +92,6 @@ function create(){
   //Keyboard input 
   cursor = this.input.keyboard.createCursorKeys();
   
-
- 
-  
 }
 
 function resetBall(){
@@ -111,11 +101,26 @@ function resetBall(){
 }
 
 function resetLevel(){
-   resetBall();
+
+  /*
+  let resetCodes =  {
+    brick1broken : "sprite14",
+    brick2broken : "sprite15",
+    brick3broken : "sprite16",
+    brick4broken : "sprite17",
+    brick5broken : "sprite18",
+    brick6broken : "sprite19",
+  }*/
+
+  resetBall();
 
   bricks.children.each(brick => {
     brick.enableBody(false,0,0, true, true);
+    let resetName = brick.frame.name;
+    window.alert(resetName);
+    brick.setFrame(resetCodes[resetName]);
   })
+
 
 }
 
@@ -133,26 +138,32 @@ function hitpaddle(){
     ball.setVelocityX(2+Math.random()*8)
   }
 
-
-
 }
 
 function hitBricks(ball, brick){
   
+  let nameCodes =  {
+    sprite14 : "brick1broken",
+    sprite15 : "brick2broken",
+    sprite16 : "brick3broken",
+    sprite17 : "brick4broken",
+    sprite18 : "brick5broken",
+    sprite19 : "brick6broken"
+  }
+
   if (brick.getData('cracked')){
     brick.disableBody(true, true);
   }
 
-
   brick.setData('cracked', true);
-  brick.setFrame(bricksFrames[5]);
-
+  let framename = brick.frame.name;
+  brick.setFrame(nameCodes[framename]);
+  
   if (bricks.countActive() === 0){
     resetLevel();
-
   }
-
 }
+
 
 function update(){
 /**Logica de actualizacion */
