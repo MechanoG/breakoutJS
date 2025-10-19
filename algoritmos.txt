@@ -25,6 +25,16 @@ Generador de ladrillos.
 --Al no  haber mas ladrillos se acaba el nivel
 --Cuando la pelota golpea el ladrillo esta rebota en el.
 
+-----Por agregar
+-Vidas (3)
+sonido
+reset
 
+--Error
+
+Despues de eliminarse el frame
+asignado a todos los ladrillo es "sprite14"
+
+---Debe ser capaz de alguna forma, de asignar el frame original 
 
 

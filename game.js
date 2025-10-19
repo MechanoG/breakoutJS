@@ -30,6 +30,8 @@ function preload(){
 }
  
 function create(){
+
+
   //Carga spritesheet de backguronds
   let backgroundTexture = this.textures.get("backgrounds");
   let backgroundFrames = backgroundTexture.getFrameNames();
@@ -63,6 +65,7 @@ function create(){
 
 
    //names of the sprites bricks
+
   let graybrick = bricksFrames[0];
   let greenbrick = bricksFrames[1];
   let yellowbrick = bricksFrames[2];
@@ -95,12 +98,23 @@ function create(){
 }
 
 function resetBall(){
+
   ball.setPosition(paddle.x, paddle.y-45);
   ball.setVelocity(0,0);
-  ball.setData("onPaddle", true)
+  ball.setData("onPaddle", true);
+
 }
 
 function resetLevel(){
+  
+
+  let resetCodes =  [
+    "sprite14", "sprite15",
+    "sprite16", "sprite17",
+    "sprite18", "sprite19"  
+  ]
+    
+  
 
   /*
   let resetCodes =  {
@@ -109,18 +123,30 @@ function resetLevel(){
     brick3broken : "sprite16",
     brick4broken : "sprite17",
     brick5broken : "sprite18",
-    brick6broken : "sprite19",
+    brick6broken : "sprite19"
   }*/
 
   resetBall();
 
-  bricks.children.each(brick => {
-    brick.enableBody(false,0,0, true, true);
-    let resetName = brick.frame.name;
-    window.alert(resetName);
-    brick.setFrame(resetCodes[resetName]);
-  })
+  let colum = 0;
+  let index = 0;
 
+  bricks.children.each(brick => {
+   
+    brick.enableBody(false,0,0, true, true);
+    brick.setData('cracked', false);
+    brick.setFrame(resetCodes[index]);
+
+    colum +=1;
+
+    //7 es el numero de ladrillos por fila
+    //buscar como puede hacerse para obtenerlo directamente del grid
+
+    if (colum >=7){
+      index +=1;
+      colum = 0;
+    }
+  })
 
 }
 
@@ -148,7 +174,8 @@ function hitBricks(ball, brick){
     sprite16 : "brick3broken",
     sprite17 : "brick4broken",
     sprite18 : "brick5broken",
-    sprite19 : "brick6broken"
+    sprite19 : "brick6broken",
+
   }
 
   if (brick.getData('cracked')){
