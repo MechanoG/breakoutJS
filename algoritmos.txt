@@ -28,9 +28,12 @@ Generador de ladrillos.
 -----Por agregar
 -Vidas (3)
 sonido
+ -Pelota -- Resuelto
+ -Victoria 
+ -Derrota 
 reset (resuleto)
 
 -----
- 
+
 
 

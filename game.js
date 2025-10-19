@@ -32,6 +32,7 @@ function preload(){
  
 function create(){
 
+  this.lifeAvaliable = 3;
 
   //Carga spritesheet de backguronds
   let backgroundTexture = this.textures.get("backgrounds");
@@ -67,9 +68,13 @@ function create(){
   ball.setBounce(1);
   ball.setData('onPaddle',true);
 
+  //Permite emitir eventos de colicion con el mundo
+  ball.body.onWorldBounds = true;
+  
+  ball.body.world.on('worldbounds', hitworld, this);
+
 
    //names of the sprites bricks
-
   let graybrick = bricksFrames[0];
   let greenbrick = bricksFrames[1];
   let yellowbrick = bricksFrames[2];
@@ -107,6 +112,9 @@ function resetBall(){
   ball.setVelocity(0,0);
   ball.setData("onPaddle", true);
 
+}
+function hitworld(){
+  this.ballSound.play();
 }
 
 function resetLevel(){
@@ -224,6 +232,14 @@ function update(){
   }
 
   if(ball.y > 600 ){
+    
+    if(this.lifeAvaliable <= 0){
+      window.alert("PERDISTE FRACASADO");
+      resetBall();  
+    }
+
+    this.lifeAvaliable -=1;
+
     resetBall();
   }
 
