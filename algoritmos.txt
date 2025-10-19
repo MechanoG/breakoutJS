@@ -28,13 +28,9 @@ Generador de ladrillos.
 -----Por agregar
 -Vidas (3)
 sonido
-reset
+reset (resuleto)
 
---Error
-
-Despues de eliminarse el frame
-asignado a todos los ladrillo es "sprite14"
-
----Debe ser capaz de alguna forma, de asignar el frame original 
+-----
+ 
 
 

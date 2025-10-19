@@ -26,6 +26,7 @@ function preload(){
   this.load.atlas("backgrounds", "assets/images/Backround_Tiles.png", "assets/images/backgrounds.json");
   this.load.atlas("ballPadle", "assets/images/paddles_and_balls.png", "assets/images/ballPadle.json");
   this.load.atlas("bricks", "assets/images/bricks.png", "assets/images/bricks.json");
+  this.load.audio("hitBall", "assets/audio/ball-hit.wav")
   
 }
  
@@ -47,6 +48,9 @@ function create(){
 
   let bricksTexture = this.textures.get("bricks");
   let bricksFrames = bricksTexture.getFrameNames();
+
+  //Sounds
+  this.ballSound = this.sound.add("hitBall");
 
   //World limits
   this.physics.world.setBoundsCollision(true, true, true, false);
@@ -88,7 +92,7 @@ function create(){
   
   //Collisions
   
-  this.physics.add.collider(paddle,ball, hitpaddle);
+  this.physics.add.collider(paddle,ball, hitpaddle, null, this);
   this.physics.add.collider(ball, bricks, hitBricks, null, this);
   
 
@@ -152,6 +156,8 @@ function resetLevel(){
 
 function hitpaddle(){
   let diff=0;
+
+  this.ballSound.play();
   
   if(ball.x >paddle.x ){
     diff = ball.x - paddle.x;
@@ -167,7 +173,7 @@ function hitpaddle(){
 }
 
 function hitBricks(ball, brick){
-  
+
   let nameCodes =  {
     sprite14 : "brick1broken",
     sprite15 : "brick2broken",
@@ -177,6 +183,8 @@ function hitBricks(ball, brick){
     sprite19 : "brick6broken",
 
   }
+
+  this.ballSound.play();
 
   if (brick.getData('cracked')){
     brick.disableBody(true, true);
