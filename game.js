@@ -190,6 +190,7 @@ function hitBricks(ball, brick){
   brick.setFrame(nameCodes[framename]);
   
   if (bricks.countActive() === 0){
+    this.lifeAvaliable = 3;
     window.alert("GANASTE TILIN");
     resetLevel();
   }
@@ -230,9 +231,6 @@ function update(){
       this.lifeAvaliable -=1;
 
     }
-
-    
-
     resetBall();
   }
 
