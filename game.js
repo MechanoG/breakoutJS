@@ -125,23 +125,11 @@ function resetLevel(){
     "sprite16", "sprite17",
     "sprite18", "sprite19"  
   ]
-    
-  
-
-  /*
-  let resetCodes =  {
-    brick1broken : "sprite14",
-    brick2broken : "sprite15",
-    brick3broken : "sprite16",
-    brick4broken : "sprite17",
-    brick5broken : "sprite18",
-    brick6broken : "sprite19"
-  }*/
 
   resetBall();
 
   let colum = 0;
-  let index = 0;
+  let index = 0
 
   bricks.children.each(brick => {
    
@@ -159,7 +147,6 @@ function resetLevel(){
       colum = 0;
     }
   })
-
 }
 
 function hitpaddle(){
@@ -203,6 +190,7 @@ function hitBricks(ball, brick){
   brick.setFrame(nameCodes[framename]);
   
   if (bricks.countActive() === 0){
+    window.alert("GANASTE TILIN");
     resetLevel();
   }
 }
@@ -216,12 +204,12 @@ function update(){
     if(ball.getData('onPaddle')){
       ball.x = paddle.x;  
     } 
-    paddle.setVelocityX(-300)
+    paddle.setVelocityX(-375)
   }else if(cursor.right.isDown){
     if(ball.getData('onPaddle')){
       ball.x = paddle.x;  
     } 
-    paddle.setVelocityX(300);
+    paddle.setVelocityX(375);
   }else if(cursor.up.isDown){
     if (ball.getData("onPaddle")){
       ball.setVelocity(-75,-500);
@@ -233,12 +221,17 @@ function update(){
 
   if(ball.y > 600 ){
     
-    if(this.lifeAvaliable <= 0){
+    if(this.lifeAvaliable <= 1){
+      this.lifeAvaliable = 3;
       window.alert("PERDISTE FRACASADO");
-      resetBall();  
+      resetLevel();  
+    }else{
+
+      this.lifeAvaliable -=1;
+
     }
 
-    this.lifeAvaliable -=1;
+    
 
     resetBall();
   }
