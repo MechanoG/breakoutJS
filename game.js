@@ -26,7 +26,8 @@ function preload(){
   this.load.atlas("backgrounds", "assets/images/Backround_Tiles.png", "assets/images/backgrounds.json");
   this.load.atlas("ballPadle", "assets/images/paddles_and_balls.png", "assets/images/ballPadle.json");
   this.load.atlas("bricks", "assets/images/bricks.png", "assets/images/bricks.json");
-  this.load.audio("hitBall", "assets/audio/ball-hit.wav")
+  this.load.atlas("heart", "assets/images/Hearts.png", "assets/images/heart.json");
+  this.load.audio("hitBall", "assets/audio/ball-hit.wav");
   
 }
  
@@ -94,6 +95,12 @@ function create(){
     child.setDisplaySize(100, 30)
     child.setData('cracked', false);
   })
+
+  const HEARTY = 575;
+
+  this.heart1 = this.add.image(30, HEARTY, "heart", "heart0001").setDisplaySize(60,60);
+  this.heart2 = this.add.image(80, HEARTY, "heart", "heart0001").setDisplaySize(60,60);
+  this.heart3 = this.add.image(130, HEARTY, "heart", "heart0001").setDisplaySize(60,60);
   
   //Collisions
   

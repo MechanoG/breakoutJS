@@ -27,8 +27,13 @@ Generador de ladrillos.
 
 -----Por agregar
 -Vidas (3)
+    -mostrar corazones.
+    -desaparecer corazones cuando perdida pelota
+    -pantalla se sacude cuando se pierde vida
+
+
 sonido
- -Pelota -- Resuelto
+ -Pelota -- Resueltos
  -Victoria 
  -Derrota 
 reset (resuleto)
