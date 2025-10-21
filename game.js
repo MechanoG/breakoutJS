@@ -231,11 +231,21 @@ function update(){
     
     if(this.lifeAvaliable <= 1){
       this.lifeAvaliable = 3;
+      this.heart1.setVisible(false);
       window.alert("PERDISTE FRACASADO");
+      this.heart1.setVisible(true);
+      this.heart2.setVisible(true);
+      this.heart3.setVisible(true);
+
       resetLevel();  
     }else{
-
       this.lifeAvaliable -=1;
+      
+      if(this.lifeAvaliable == 2){
+        this.heart3.setVisible(false);
+      }else{
+        this.heart2.setVisible(false);
+      }
 
     }
     resetBall();
