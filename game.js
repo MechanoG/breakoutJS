@@ -23,11 +23,17 @@ const game = new Phaser.Game(config);
 
 function preload(){
 
+  //Atlas de SpriteSheets
   this.load.atlas("backgrounds", "assets/images/Backround_Tiles.png", "assets/images/backgrounds.json");
   this.load.atlas("ballPadle", "assets/images/paddles_and_balls.png", "assets/images/ballPadle.json");
   this.load.atlas("bricks", "assets/images/bricks.png", "assets/images/bricks.json");
   this.load.atlas("heart", "assets/images/Hearts.png", "assets/images/heart.json");
+ 
+  //Audio sounds
   this.load.audio("hitBall", "assets/audio/ball-hit.wav");
+  this.load.audio("miss", "assets/audio/miss-sound.wav");
+  this.load.audio("losser", "assets/audio/losser.wav");
+  this.load.audio("win", "assets/audio/win.wav");
   
 }
  
@@ -53,6 +59,9 @@ function create(){
 
   //Sounds
   this.ballSound = this.sound.add("hitBall");
+  this.missSound = this.sound.add("miss");
+  this.losserSound = this.sound.add("losser");
+  this.winSound = this.sound.add("win");
 
   //World limits
   this.physics.world.setBoundsCollision(true, true, true, false);
@@ -198,6 +207,7 @@ function hitBricks(ball, brick){
   
   if (bricks.countActive() === 0){
     this.lifeAvaliable = 3;
+    this.winSound.play();
     window.alert("GANASTE TILIN");
     resetLevel();
   }
@@ -230,16 +240,21 @@ function update(){
   if(ball.y > 600 ){
     
     if(this.lifeAvaliable <= 1){
+      this.losserSound.play();
+      window.alert("PERDISTE FRACASADO");
       this.lifeAvaliable = 3;
       this.heart1.setVisible(false);
-      window.alert("PERDISTE FRACASADO");
       this.heart1.setVisible(true);
       this.heart2.setVisible(true);
       this.heart3.setVisible(true);
+      
 
       resetLevel();  
     }else{
       this.lifeAvaliable -=1;
+
+      this.missSound.play();
+      this.cameras.main.shake(500, 0.2);
       
       if(this.lifeAvaliable == 2){
         this.heart3.setVisible(false);
