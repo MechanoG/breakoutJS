@@ -254,7 +254,7 @@ function update(){
       this.lifeAvaliable -=1;
 
       this.missSound.play();
-      this.cameras.main.shake(500, 0.2);
+      this.cameras.main.shake(250, 0.1);
       
       if(this.lifeAvaliable == 2){
         this.heart3.setVisible(false);
