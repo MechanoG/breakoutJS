@@ -34,6 +34,8 @@ function preload(){
   this.load.audio("miss", "assets/audio/miss-sound.wav");
   this.load.audio("losser", "assets/audio/losser.wav");
   this.load.audio("win", "assets/audio/win.wav");
+
+
   
 }
  
@@ -62,6 +64,8 @@ function create(){
   this.missSound = this.sound.add("miss");
   this.losserSound = this.sound.add("losser");
   this.winSound = this.sound.add("win");
+
+  
 
   //World limits
   this.physics.world.setBoundsCollision(true, true, true, false);
@@ -105,6 +109,24 @@ function create(){
     child.setData('cracked', false);
   })
 
+
+  //TEXT
+
+  const TEXTCONFIG = {
+    fontFamily: "arial, san-serif",
+    fontSize:100,
+    backgroundColor: "#000",
+    color: "#f00",
+    stroke: "#000",
+    strokeThickness: 1
+
+  }
+
+
+  const lostMess = this.add.text(150, 240, "PERDISTE", TEXTCONFIG);
+  const winMess = this.add.text(300, 300, "GANASTE", TEXTCONFIG).setVisible(false);
+
+///Lifes
   const HEARTY = 575;
 
   this.heart1 = this.add.image(30, HEARTY, "heart", "heart0001").setDisplaySize(60,60);
