@@ -18,6 +18,8 @@ const config = {
     }
 };
 
+this.isPaused = false;
+
 // Usa la variable global 'Phaser'
 const game = new Phaser.Game(config);
 
@@ -100,7 +102,7 @@ function create(){
   bricks =  this.physics.add.staticGroup({
     key : "bricks",
     frame: [graybrick,greenbrick,yellowbrick,orangebrick,redbrick,purplebrick],
-    frameQuantity : 7,
+    frameQuantity : 1,
     gridAlign :{width: 7, height:6, cellWidth : 105, cellHeight: 35, x: 75, y: 100}
    });
 
@@ -112,7 +114,7 @@ function create(){
 
   //TEXT
 
-  const TEXTCONFIG = {
+  const LOSSTEXTCONFIG = {
     fontFamily: "arial, san-serif",
     fontSize:100,
     backgroundColor: "#000",
@@ -122,9 +124,29 @@ function create(){
 
   }
 
+  const WINTEXTCONFIG = {
+    fontFamily: "arial, san-serif",
+    fontSize:100,
+    backgroundColor: "#000",
+    color: "rgba(35, 199, 30, 1)",
+    stroke: "#000",
+    strokeThickness: 1
+  }
 
-  const lostMess = this.add.text(150, 240, "PERDISTE", TEXTCONFIG);
-  const winMess = this.add.text(300, 300, "GANASTE", TEXTCONFIG).setVisible(false);
+  const CONTINUECONFIG = {
+    fontFamily: "arial, san-serif",
+    fontSize:40,
+    backgroundColor: "#000",
+    color: "#fff",
+    stroke: "#000",
+    strokeThickness: 1
+  }
+
+
+  this.lostMess = this.add.text(150, 240, "PERDISTE", LOSSTEXTCONFIG).setVisible(false);
+  this.winMess = this.add.text(160, 240, "GANASTE", WINTEXTCONFIG).setVisible(false);
+  this.continueMess = this.add.text(50, 350, "PRESIONA ENTER PARA CONTINUAR", CONTINUECONFIG).setVisible(false);
+
 
 ///Lifes
   const HEARTY = 575;
@@ -180,7 +202,7 @@ function resetLevel(){
     //7 es el numero de ladrillos por fila
     //buscar como puede hacerse para obtenerlo directamente del grid
 
-    if (colum >=7){
+    if (colum >=1){
       index +=1;
       colum = 0;
     }
@@ -230,7 +252,8 @@ function hitBricks(ball, brick){
   if (bricks.countActive() === 0){
     this.lifeAvaliable = 3;
     this.winSound.play();
-    window.alert("GANASTE TILIN");
+    this.winMess.setVisible(true);
+    this.continueMess.setVisible(true)
     resetLevel();
   }
 }
@@ -263,7 +286,11 @@ function update(){
     
     if(this.lifeAvaliable <= 1){
       this.losserSound.play();
-      window.alert("PERDISTE FRACASADO");
+
+      this.lostMess.setVisible(true);
+      this.continueMess.setVisible(true)
+
+
       this.lifeAvaliable = 3;
       this.heart1.setVisible(false);
       this.heart1.setVisible(true);
@@ -287,5 +314,12 @@ function update(){
     }
     resetBall();
   }
+
+  async function test() {
+  console.log('waiting keypress..')
+  await waitingKeypress();
+  console.log('good job!')
+}
+
 
 }
