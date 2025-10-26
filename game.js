@@ -17,9 +17,6 @@ const config = {
         update: update
     }
 };
-
-this.isPaused = false;
-
 // Usa la variable global 'Phaser'
 const game = new Phaser.Game(config);
 
@@ -44,6 +41,7 @@ function preload(){
 function create(){
 
   this.lifeAvaliable = 3;
+  this.isPaused = false;
 
   //Carga spritesheet de backguronds
   let backgroundTexture = this.textures.get("backgrounds");
@@ -163,6 +161,7 @@ function create(){
 
   //Keyboard input 
   cursor = this.input.keyboard.createCursorKeys();
+  cursor.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
   
 }
 
@@ -250,11 +249,15 @@ function hitBricks(ball, brick){
   brick.setFrame(nameCodes[framename]);
   
   if (bricks.countActive() === 0){
-    this.lifeAvaliable = 3;
+    //this.lifeAvaliable = 3;
     this.winSound.play();
     this.winMess.setVisible(true);
     this.continueMess.setVisible(true)
-    resetLevel();
+    ball.setVelocityY(0);
+    ball.setVelocityX(0);
+    this.isPaused = true;
+
+    //resetLevel();
   }
 }
 
@@ -263,23 +266,42 @@ function update(){
 /**Logica de actualizacion */
 
 /////Paddle
-  if(cursor.left.isDown){
-    if(ball.getData('onPaddle')){
-      ball.x = paddle.x;  
-    } 
-    paddle.setVelocityX(-375)
-  }else if(cursor.right.isDown){
-    if(ball.getData('onPaddle')){
-      ball.x = paddle.x;  
-    } 
-    paddle.setVelocityX(375);
-  }else if(cursor.up.isDown){
-    if (ball.getData("onPaddle")){
-      ball.setVelocity(-75,-500);
-      ball.setData("onPaddle", false);
+  if (this.isPaused){
+    paddle.setVelocityX(0);
+    if(cursor.enter.isDown){
+      this.isPaused = false;
+      //
+      this.lifeAvaliable = 3;
+      this.lostMess.setVisible(false);
+      this.continueMess.setVisible(false);
+      this.winMess.setVisible(false);
+      //
+
+      this.heart1.setVisible(true);
+      this.heart2.setVisible(true);
+      this.heart3.setVisible(true);
+      resetLevel();
+
     }
   }else{
-    paddle.setVelocityX(0);
+    if(cursor.left.isDown){
+      if(ball.getData('onPaddle')){
+        ball.x = paddle.x;  
+      } 
+      paddle.setVelocityX(-375)
+    }else if(cursor.right.isDown){
+      if(ball.getData('onPaddle')){
+        ball.x = paddle.x;  
+      } 
+      paddle.setVelocityX(375);
+    }else if(cursor.up.isDown){
+      if (ball.getData("onPaddle")){
+        ball.setVelocity(-75,-500);
+        ball.setData("onPaddle", false);
+      }
+    }else{
+      paddle.setVelocityX(0);
+    }
   }
 
   if(ball.y > 600 ){
@@ -288,17 +310,22 @@ function update(){
       this.losserSound.play();
 
       this.lostMess.setVisible(true);
-      this.continueMess.setVisible(true)
-
-
-      this.lifeAvaliable = 3;
+      this.continueMess.setVisible(true);
       this.heart1.setVisible(false);
+      ball.setVelocityY(0);
+      ball.setVelocityX(0);
+      this.isPaused = true;
+      
+      /*
+      this.lifeAvaliable = 3;
+     
+      
       this.heart1.setVisible(true);
       this.heart2.setVisible(true);
       this.heart3.setVisible(true);
       
 
-      resetLevel();  
+      resetLevel();  */
     }else{
       this.lifeAvaliable -=1;
 
@@ -314,12 +341,6 @@ function update(){
     }
     resetBall();
   }
-
-  async function test() {
-  console.log('waiting keypress..')
-  await waitingKeypress();
-  console.log('good job!')
-}
 
 
 }

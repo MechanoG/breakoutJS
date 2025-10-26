@@ -31,14 +31,13 @@ Generador de ladrillos.
     -desaparecer corazones cuando perdida pelota
     -pantalla se sacude cuando se pierde vida
 
-
-sonido
- -Pelota -- Resueltos
- -Victoria 
- -Derrota 
-reset (resuleto)
-
------
-
+Pausa-
+//Enpausa
+//mientras en pausa no recibe input de keys
+//Congela pelota.
+//Congela paddle
+//toca enter para restaurar
+//Quita mensajes
+//Reinicia el nivel
 
 
