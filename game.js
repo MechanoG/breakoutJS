@@ -33,8 +33,6 @@ function preload(){
   this.load.audio("miss", "assets/audio/miss-sound.wav");
   this.load.audio("losser", "assets/audio/losser.wav");
   this.load.audio("win", "assets/audio/win.wav");
-
-
   
 }
  
@@ -77,7 +75,7 @@ function create(){
 
 
   //Ball
-  ball= this.physics.add.sprite(400,paddle.y-35, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
+  ball= this.physics.add.sprite(paddle.x,paddle.y-35, "ballPadle", ballpadleFrames[0]).setDisplaySize(30, 30);
   ball.setCollideWorldBounds(true);
   ball.setBounce(1);
   ball.setData('onPaddle',true);
@@ -100,7 +98,7 @@ function create(){
   bricks =  this.physics.add.staticGroup({
     key : "bricks",
     frame: [graybrick,greenbrick,yellowbrick,orangebrick,redbrick,purplebrick],
-    frameQuantity : 1,
+    frameQuantity : 7,
     gridAlign :{width: 7, height:6, cellWidth : 105, cellHeight: 35, x: 75, y: 100}
    });
 
@@ -167,8 +165,9 @@ function create(){
 
 function resetBall(){
 
-  ball.setPosition(paddle.x, paddle.y-45);
-  ball.setVelocity(0,0);
+  ball.setPosition(paddle.x - 15, paddle.y-50);
+  ball.setVelocityX(0);
+  ball.setVelocityY(0);
   ball.setData("onPaddle", true);
 
 }
@@ -201,7 +200,7 @@ function resetLevel(){
     //7 es el numero de ladrillos por fila
     //buscar como puede hacerse para obtenerlo directamente del grid
 
-    if (colum >=1){
+    if (colum >=7){
       index +=1;
       colum = 0;
     }
@@ -253,8 +252,6 @@ function hitBricks(ball, brick){
     this.winSound.play();
     this.winMess.setVisible(true);
     this.continueMess.setVisible(true)
-    ball.setVelocityY(0);
-    ball.setVelocityX(0);
     this.isPaused = true;
 
     //resetLevel();
@@ -267,6 +264,8 @@ function update(){
 
 /////Paddle
   if (this.isPaused){
+    ball.setVelocityY(0);
+    ball.setVelocityX(0);
     paddle.setVelocityX(0);
     if(cursor.enter.isDown){
       this.isPaused = false;
@@ -286,12 +285,12 @@ function update(){
   }else{
     if(cursor.left.isDown){
       if(ball.getData('onPaddle')){
-        ball.x = paddle.x;  
+        ball.x = paddle.x - 15;  
       } 
       paddle.setVelocityX(-375)
     }else if(cursor.right.isDown){
       if(ball.getData('onPaddle')){
-        ball.x = paddle.x;  
+        ball.x = paddle.x + 15;  
       } 
       paddle.setVelocityX(375);
     }else if(cursor.up.isDown){
@@ -312,20 +311,8 @@ function update(){
       this.lostMess.setVisible(true);
       this.continueMess.setVisible(true);
       this.heart1.setVisible(false);
-      ball.setVelocityY(0);
-      ball.setVelocityX(0);
       this.isPaused = true;
       
-      /*
-      this.lifeAvaliable = 3;
-     
-      
-      this.heart1.setVisible(true);
-      this.heart2.setVisible(true);
-      this.heart3.setVisible(true);
-      
-
-      resetLevel();  */
     }else{
       this.lifeAvaliable -=1;
 
